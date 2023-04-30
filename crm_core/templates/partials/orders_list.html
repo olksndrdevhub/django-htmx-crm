@@ -1,0 +1,12 @@
+
+{% for order in orders %}
+    <li class="list-group-item d-flex justify-content-between">
+        <span>{{ order.id }}</span>
+        <span>
+            <button type="button" class="btn btn-outline-success btn-sm">
+                Edit
+            </button>
+        </span>
+    </li>
+{% endfor %}
+

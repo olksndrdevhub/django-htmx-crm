@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Products -
+{% endblock title %}
+
+{% block additional_links %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #htmx-indicator {
+            max-width: 100%;
+            max-height: 35px;
+        }
+        .page-link:hover {
+            cursor: pointer;
+        }
+    </style>
+{% endblock additional_links %}
+
+{% block content %}
+    <div class="header m-1">
+        <div class="title p-1 text-center font-bold">
+            <h1 class="text-5xl">Products</h1>
+        </div>
+        <div class="searchbar p-2 bg-gray-700 rounded-md d-flex">
+            <input type="search" name="search" id="search" placeholder="Begin Typing To Search Product..."
+                class="p-2 b-0 rounded-md w-75"
+                hx-get="{% url 'crm_core:products_view' %}"
+                hx-trigger="keyup changed delay:500ms, search"
+                hx-target="#table-body"
+                hx-wsap="innerHTML"
+                hx-indicator="#htmx-indicator"
+                hx-push-url="true"
+            >
+            <img src="{% static 'svg/spinning-circles.svg' %}" class="htmx-indicator ml-1" id="htmx-indicator" alt="loading...">
+            <button type="button"
+                    class="bg-green-600 btn-sm text-white font-bold ml-auto"
+                    hx-get="{% url 'crm_core:hx_add_product' %}"
+                    hx-target="#spawn-form"
+                    hx-swap="innerHTML"> 
+                Create
+            </button>
+        </div>
+    </div>
+    <div id="spawn-form" class="m-1">
+    </div>
+    <div class="main m-1">
+        <div class="table-box p-2 bg-gray-200 rounded-md">
+            <table class="table table-auto w-full"> 
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Availability</th>
+                        <th>Created At</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    {% include 'partials/products_table_body.html' %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="footer p-2 bg-white" style="border-radius: 10px;">
+        {% include 'partials/paging_navigation.html' %}
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script>
+        function removeForm(event) {
+            var spawnFormsBlock = document.getElementById('spawn-form');
+            spawnFormsBlock.removeChild(spawnFormsBlock.firstChild);
+        }
+
+        function confirmDeletion() {
+            
+        }
+
+        document.body.addEventListener('htmx:configRequest', function(evt) {
+            page_param = window.location.search;
+            urlParams = new URLSearchParams(page_param);
+            search_query = document.getElementById('search').value;
+            if (evt.detail.path.includes('?page=')) {
+                if (search_query !== '') {
+                    console.log('append')
+                    evt.detail.path += '&search=' + search_query
+                }
+            }
+        });
+    </script>
+{% endblock javascripts %}

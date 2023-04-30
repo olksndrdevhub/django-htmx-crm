@@ -1,0 +1,48 @@
+<form action="#" method="post" class="border border-1 p-3 rounded-custom mb-3">
+    <div class="row">
+        <div class="mb-3 col">
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="first_name" class="form-label">First name</label>
+                    <input type="text" name="first_name" id="first_name" class="form-control">
+                    <div id="title" class="form-text">Input client first name.</div>
+                </div>
+                <div class="col">
+                    <label for="last_name" class="form-label">Last name</label>
+                    <input type="text" name="last_name" id="last_name" class="form-control">
+                    <div id="last_name" class="form-text">Input client last name.</div>
+                </div>
+            </div>
+            <!-- <div class="mb-3">
+                <label for="userpic" class="form-label">Userpic</label>
+                <input type="file" class="form-control" name="userpic" id="userpic">
+                <div id="userpic" class="form-text">Select userpic for client.</div>
+            </div> -->
+        </div>
+        <div class="mb-3 col">
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" name="email" id="email" class="form-control">
+                    <div id="email" class="form-text">Input client email.</div>
+                </div>
+                <div class="col">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="phone" name="phone" id="phone" class="form-control">
+                    <div id="phone" class="form-text">Input client phone.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="d-flex justify-content-between">
+        <button type="submit"
+            class="btn btn-primary"
+            hx-post="{% url 'crm_core:hx_add_client' %}"
+            hx-target="#clients-list"
+            hx-swap="innerHTML">
+            Submit
+        </button>
+        <button type="reset" onclick="removeForm(event)" class="btn btn-outline-warning">Cancel</button>
+    </div>
+</form>

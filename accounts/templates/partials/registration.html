@@ -1,0 +1,46 @@
+<div class="wrapper">
+    <div class="header text-center mb-3">
+        <h2>Registration</h2>
+    </div>
+    <div class="register-form">
+        <form hx-post="{% url 'accounts:hx_registration' %}"
+                hx-target="#auth-wrapper"
+                hx-swap="innerHTML">
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First name</label>
+                <input type="text" name="first_name" id="first_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last name</label>
+                <input type="text" name="last_name" id="last_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input type="password" name="password1" id="password!" class="form-control" required onchange="onChange()">
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Confirm password</label>
+                <input type="password" name="password2" id="password2" class="form-control" required onchange="onChange()">
+            </div>
+            <span id="password_warning" style="display: none; color:red"></span>
+            <div id="password-validation" class="mb-3"></div>
+            <button type="submit" class="btn btn-primary" name="register">
+                Register</button>
+        </form>
+        <div class="footer mt-3">
+            <p>
+                Already registered?
+                <a
+                    hx-get="{% url 'accounts:hx_login' %}"
+                    hx-target="#auth-wrapper"
+                    hx-swap="innerHTML">
+                    Log in now!
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

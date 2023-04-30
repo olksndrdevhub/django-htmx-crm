@@ -1,0 +1,58 @@
+/* redefine bootstrap styles */
+input {
+    border-radius: 15px!important;
+    background-color: whitesmoke!important;
+    border-color: white!important;
+}
+
+.btn {
+    border-radius: 15px!important;
+}
+
+/* end */
+
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #e8e8e8;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: blue!important;
+}
+
+.wrapper {
+    border-radius: 15px;
+    background: #e8e8e8;
+    box-shadow:  32px 32px 65px #bebebe,
+                 -32px -32px 65px #ffffff;
+    margin: 5rem auto;
+    width: 30vw;
+    padding: 3rem;
+}
+
+
+/* media queries */
+@media (max-width: 1300px) {
+    .wrapper {
+        width: 50vw;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        width: 75vw;
+        padding: 2rem;
+        margin: 2rem auto;
+    }
+}
+
+@media (max-width: 425px) {
+    .wrapper {
+        width: 90vw;
+        padding: 1rem;
+    }
+}

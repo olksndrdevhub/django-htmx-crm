@@ -1,0 +1,31 @@
+<div class="wrapper">
+    <div class="header text-center mb-3">
+        <h2>Log in</h2>
+    </div>
+    <div class="register-form">
+        <form hx-post="{% url 'accounts:hx_login' %}"
+            hx-target="#auth-wrapper"
+            hx-swap="innerHTML">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
+        <div class="footer mt-3">
+            <p>
+                Don`t have account?
+                <a 
+                    hx-get="{% url 'accounts:hx_registration' %}"
+                    hx-target="#auth-wrapper"
+                    hx-swap="innerHTML">
+                    Register now!
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home - 
+{% endblock title %}
+
+{% block additional_links %}
+    <link rel="stylesheet" href="{% static 'css/crm_home.css' %}">
+    
+{% endblock additional_links %}
+
+{% block content %}
+    <div class="home-header-block">
+        <div class="row">
+            <div class="col-sm-3">
+              {% include 'partials/cards/orders_card.html' %}
+            </div>
+            <div class="col-sm-3">
+                {% include 'partials/cards/clients_card.html' %}
+            </div>
+            <div class="col-sm-3">
+                {% include 'partials/cards/products_card.html' %}
+              </div>
+              <div class="col-sm-3">
+                <div class="card">
+                  <div class="card-body border border-1 border-success">
+                    <h5 class="card-title">Income</h5>
+                    <p class="card-text">Total:</p>
+                  </div>
+                </div>
+              </div>
+          </div>
+    </div>
+    <div class="home-main-block mt-5 row">
+        <div id="spawn-form">
+        </div>
+        <div class="orders-list col-sm-4">
+            <div class="block-header d-flex justify-content-between align-items-center">
+                <h2>Orders</h2>
+                <button type="button"
+                    class="btn btn-outline-primary btn-sm"
+                    hx-get="{% url 'crm_core:hx_add_order' %}"
+                    hx-target="#spawn-form"
+                    hx-swap="innerHTML"> 
+                Add+
+                </button>
+            </div>
+            <ul class="list-group items-list overflow-auto" id="orders-list">
+                {% include 'partials/orders_list.html' %}
+            </ul>
+        </div>
+        <div class="clients-list col-sm-4">
+            <div class="block-header d-flex justify-content-between align-items-center">
+                <h2>Clients</h2>
+                <button type="button"
+                    class="btn btn-outline-primary btn-sm"
+                    hx-get="{% url 'crm_core:hx_add_client' %}"
+                    hx-target="#spawn-form"
+                    hx-swap="innerHTML"> 
+                Add+
+                </button>
+            </div>
+            <ul class="list-group items-list overflow-auto" id="clients-list">
+                {% include 'partials/clients_list.html' %}
+            </ul>
+        </div>
+        <div class="products-list col-sm-4">
+            <div class="block-header d-flex justify-content-between align-items-center">
+                <h2>Products</h2>
+                <button type="button"
+                    class="btn btn-outline-primary btn-sm"
+                    hx-get="{% url 'crm_core:hx_add_product' %}"
+                    hx-target="#spawn-form"
+                    hx-swap="innerHTML"> 
+                Add+
+                </button>
+            </div>
+            <ul class="list-group items-list overflow-auto" id="products-list">
+                {% include 'partials/products_list.html' %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+
+<script>
+    function removeForm(event) {
+        var spawnFormsBlock = document.getElementById('spawn-form');
+        spawnFormsBlock.removeChild(spawnFormsBlock.firstChild);
+    }
+</script>
+    
+{% endblock javascripts %}

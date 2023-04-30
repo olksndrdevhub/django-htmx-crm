@@ -1,0 +1,14 @@
+<div class="success-registration">
+    <h3>Success!</h3>
+    <p>Check your email inbox to complete your registration!</p>
+</div>
+<div class="footer mt-3">
+    <p>
+        <a
+            hx-get="{% url 'accounts:hx_login' %}"
+            hx-target="#auth-wrapper"
+            hx-swap="innerHTML">
+            Back to log in!
+        </a>
+    </p>
+</div>

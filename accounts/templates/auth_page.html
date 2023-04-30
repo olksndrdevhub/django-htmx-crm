@@ -1,0 +1,60 @@
+{% extends 'base_accounts.html' %}
+
+{% block title %}
+    Auth - 
+{% endblock title %}
+
+{% block additional_links %}
+{% endblock additional_links %}
+
+{% block content %}
+    <div class="">
+        <div id="auth-wrapper">
+            {% if page == 'registration' %}
+                {% include 'partials/registration.html' %}
+            {% else %}
+                {% include 'partials/login.html' %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+
+<script>
+    document.body.addEventListener('htmx:beforeRequest', function(evt) {
+        var parameters = evt.detail.requestConfig.parameters;
+        console.log(parameters);
+    });
+</script>
+<script>
+    function onChange() {
+        const password = document.querySelector('input[name=password1]');
+        const confirm = document.querySelector('input[name=password2]');
+        const submit = document.querySelector('button[name=register]');
+        if (confirm.value === password.value) {
+            document.getElementById('password_warning').style.display = 'none';
+            submit.disabled = false;
+            submit.style.color = 'white';
+            password.style.borderColor = 'white';
+            confirm.style.borderColor = 'white';
+            if (password.value.length < 8) {
+                document.getElementById('password_warning').style.display = 'block';
+                document.getElementById('password_warning').innerText = 'Password length must be at least 8 characters!';
+                submit.disabled = true;
+                password.style.borderColor = '#E37526';
+            }
+
+        } else {
+            document.getElementById('password_warning').style.display = 'block';
+            document.getElementById('password_warning').innerText = 'Passwords didn`t match!';
+            submit.disabled = true;
+            password.style.borderColor = '#E37526';
+            confirm.style.borderColor = '#E37526';
+        }
+    }
+    
+    
+</script>
+
+{% endblock javascripts %}

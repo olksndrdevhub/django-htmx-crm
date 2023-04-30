@@ -1,0 +1,70 @@
+<form class="border border-1 p-3 rounded-custom mb-3">
+    <div class="row">
+        <div class="mb-3 col">
+            <div class="mb-3">
+                <label for="client" class="form-label">Client</label>
+                <select name="client" id="client" class="form-select">
+                  <option value="">Select client</option>
+                </select>
+                <div id="client" class="form-text">Select client for new order.</div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name="address" id="address" class="form-control">
+                    <div id="address" class="form-text">Input client address.</div>
+                </div>
+                <div class="col">
+                    <label for="place" class="form-label">Place/City</label>
+                    <input type="text" name="place" id="place" class="form-control">
+                    <div id="place" class="form-text">Input client city.</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="col">
+                    <label for="zipcode" class="form-label">Zipcode</label>
+                    <input type="text" name="zipcode" id="zipcode" class="form-control">
+                    <div id="zipcode" class="form-text">Input client zipcode.</div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control">
+                    <div id="email" class="form-text">Input client contact email address.</div>
+                </div>
+                <div class="col">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="phone" name="phone" id="phone" class="form-control">
+                    <div id="phone" class="form-text">Input client contact phone.</div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 col">
+            <div class="row mb-3">
+                <div class="col-sm-10">
+                    <label for="product" class="form-label">Products</label>
+                    <select name="product" id="product" class="form-select">
+                        <option value="">Select products</option>
+                    </select>
+                    <div id="product" class="form-text">Add products to new order.</div>
+                </div>
+                <div class="col">
+                    <label for="client" class="form-label">Quantity</label>
+                    <input type="number" name="quantity" id="quantity" min="1" class="form-control">
+                </div>
+                
+            </div>
+            <button type="button" class="btn btn-outline-success form-control">
+                Add another Product
+            </button>
+
+        </div>
+          
+    </div>
+    
+    <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" onclick="removeForm(event)" class="btn btn-outline-warning">Cancel</button>
+    </div>
+</form>

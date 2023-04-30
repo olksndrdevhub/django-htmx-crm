@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock title %}
+        Just CRM
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+    </style>
+
+    {% block additional_links %}
+    {% endblock additional_links %}
+</head>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer>
+
+    </footer>
+    {% include "toasts.html" %}   
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}" ></script>
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script src="{% static 'toasts.js' %}"></script>
+
+
+    {% block javascripts %}
+    {% endblock javascripts %}
+</body>
+</html>

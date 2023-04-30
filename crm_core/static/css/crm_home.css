@@ -1,0 +1,44 @@
+/* redefine bootstrap styles */
+input,
+select,
+option {
+    border-radius: 10px!important;
+}
+textarea {
+    border-radius: 10px!important;
+}
+.btn {
+    border-radius: 10px!important;
+}
+/* end */
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: blue!important;
+}
+
+.rounded-custom {
+    border-radius: 10px!important;
+}
+
+
+.card {
+    min-height: 14rem;
+    border-radius: 10px!important;
+}
+.card-body {
+    border-radius: 10px!important;
+}
+
+.items-list {
+    max-height: 20rem;
+}
+
+.list-group-item+.list-group-item {
+    border-top-width: 1px;
+}

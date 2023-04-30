@@ -1,0 +1,36 @@
+<nav id="nav_paging_navigation" hx-swap-oob="true:#nav_paging_navigation">
+    
+    <ul class="pagination justify-content-center mb-0">
+        {% if products.has_previous %}
+            <li class="page-item">
+                <a class="page-link" id="prev_page" hx-get="?page={{ products.previous_page_number }}" hx-target="#table-body" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#htmx-indicator">
+                    Previous
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+        {% endif %}
+        {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ i }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" hx-get="?page={{ i }}" hx-target="#table-body" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#htmx-indicator">
+                        {{ i }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if products.has_next %}
+            <li class="page-item">
+                <a class="page-link" id="next_page" hx-get="?page={{ products.next_page_number }}" hx-target="#table-body" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#htmx-indicator">
+                    Next
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">Next</span></li>
+        {% endif %}
+    </ul>
+</nav>
