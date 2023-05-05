@@ -1,2 +1,3 @@
 # django-htmx-crm
-Django CRM, created with HTMX
+
+## Goal: Proof-of-concept CRM-like DJango Application with [HTMX](https://htmx.org/) frontend
