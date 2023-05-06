@@ -43,7 +43,7 @@ def products_view(request):
         time.sleep(1)
         template_name = 'partials/products_table_body.html'
 
-    paginator = Paginator(products, 1)
+    paginator = Paginator(products, 3)
     total_products = paginator.count
 
     page = request.GET.get('page', 1)
