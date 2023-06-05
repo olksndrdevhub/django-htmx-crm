@@ -35,15 +35,15 @@
                 hx-indicator="#htmx-indicator"
                 hx-push-url="true"
             >
-            <img src="{% static 'svg/spinning-circles.svg' %}" class="htmx-indicator ml-1" id="htmx-indicator" alt="loading...">
             <button type="button"
                     class="bg-green-600 btn-sm text-white font-bold ml-auto"
                     @click="showAddProductForm = ! showAddProductForm">
                 Add Product
             </button>
         </div>
+        <progress class="progress is-small is-primary mt-1 htmx-indicator" id="htmx-indicator" alt="loading..." max="100">15%</progress>
     </div>
-    <form id="addProductForm" action="#" method="post" class="border border-1 p-3 rounded-custom m-1 bg-gray-200 rounded-md"
+    <form id="addProductForm" action="#" class="border border-1 p-3 rounded-custom m-1 bg-gray-200 rounded-md"
         x-show="showAddProductForm">
         <div class="row">
             <div class="mb-3 col">
@@ -120,15 +120,6 @@
 
 {% block javascripts %}
     <script>
-        function removeForm(event) {
-            var spawnFormsBlock = document.getElementById('spawn-form');
-            spawnFormsBlock.removeChild(spawnFormsBlock.firstChild);
-        }
-
-        function confirmDeletion() {
-            
-        }
-
         document.body.addEventListener('htmx:configRequest', function(evt) {
             page_param = window.location.search;
             urlParams = new URLSearchParams(page_param);
@@ -143,7 +134,10 @@
 
         document.body.addEventListener('htmx:beforeSwap', function(evt) {
             if(evt.detail.xhr.status === 200){
-                document.getElementById('addProductForm').style.display = 'none';
+                let form = document.getElementById('addProductForm');
+                form.style.display = 'none';
+                form.reset();
+                
             }
         });
     </script>
