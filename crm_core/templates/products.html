@@ -43,7 +43,7 @@
             </button>
         </div>
     </div>
-    <form action="#" method="post" class="border border-1 p-3 rounded-custom m-1 bg-gray-200 rounded-md"
+    <form id="addProductForm" action="#" method="post" class="border border-1 p-3 rounded-custom m-1 bg-gray-200 rounded-md"
         x-show="showAddProductForm">
         <div class="row">
             <div class="mb-3 col">
@@ -75,12 +75,12 @@
                 </div>
             </div>
         </div>
-        
+        <input type="hidden" name="page" value="all_products">
         <div class="d-flex justify-content-between">
             <button type="submit"
                 class="btn bg-green-600 btn-sm text-white font-bold"
                 hx-post="{% url 'crm_core:hx_add_product' %}"
-                hx-target="#products-list"
+                hx-target="#table-body"
                 hx-swap="innerHTML">
                 Submit
             </button>
@@ -138,6 +138,12 @@
                     console.log('append')
                     evt.detail.path += '&search=' + search_query
                 }
+            }
+        });
+
+        document.body.addEventListener('htmx:beforeSwap', function(evt) {
+            if(evt.detail.xhr.status === 200){
+                document.getElementById('addProductForm').style.display = 'none';
             }
         });
     </script>

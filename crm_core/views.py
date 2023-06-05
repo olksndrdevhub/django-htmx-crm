@@ -8,6 +8,7 @@ from . import models
 import time
 from accounts.models import CrmUser
 
+
 # Create your views here.
 @login_required(login_url='accounts:auth')
 @staff_member_required(login_url='accounts:auth')
@@ -61,13 +62,13 @@ def products_view(request):
 
 
 def hx_add_order(request):
-    partial_template_name =  'partials/add_order_form.html'
+    partial_template_name = 'partials/add_order_form.html'
 
     return render(request, partial_template_name)
 
 
 def hx_add_client(request):
-    partial_template_name =  'partials/add_client_form.html'
+    partial_template_name = 'partials/add_client_form.html'
     clients = None
     context = {}
 
@@ -83,7 +84,7 @@ def hx_add_client(request):
             email=email,
             first_name=first_name,
             last_name=last_name,
-            phone=phone, 
+            phone=phone,
             is_client=True,
         )
         clients = CrmUser.objects.filter(is_client=True)
@@ -95,12 +96,12 @@ def hx_add_client(request):
 
 
 def hx_add_product(request):
-    partial_template_name =  'partials/add_product_form.html'
+    partial_template_name = 'partials/add_product_form.html'
     products = None
     context = {}
 
     if request.method == 'POST':
-        partial_template_name =  'partials/products_list.html'
+        partial_template_name = 'partials/products_list.html'
 
         title = request.POST.get('title')
         price = request.POST.get('price')
@@ -109,21 +110,59 @@ def hx_add_product(request):
         if request.POST.get('availability') == 'True':
             availability = True
 
-        product = models.Product.objects.create(
+        models.Product.objects.create(
             title=title,
-            price = price,
+            price=price,
             description=description,
             availability=availability,
             created_by=request.user
         )
         products = models.Product.objects.all()
+        total_products = products.count()
+        if request.POST.get('page', False):
+            partial_template_name = 'partials/products_table_body.html'
+
+            paginator = Paginator(products, 3)
+            page = request.GET.get('page', 1)
+            try:
+                products = paginator.page(page)
+            except PageNotAnInteger:
+                products = paginator.page(1)
+            except EmptyPage:
+                paginator.page(paginator.num_pages)
+
         context = {
             'products': products,
-            'products_total': products.count(),
-            'products_out_of_stock_total': products.filter(availability=False).count(),
+            'products_total': total_products
         }
+        if not request.POST.get('page', False):
+            context['products_out_of_stock_total'] = products.filter(availability=False).count()
         messages.add_message(request, messages.SUCCESS, 'New Product added!')
-        
 
     return render(request, partial_template_name, context)
 
+
+def hx_delete_product(request, id):
+    try:
+        product = models.Product.objects.get(id=id)
+        product.delete()
+        messages.add_message(request, messages.SUCCESS, 'Product successfully deleted!')
+    except models.Product.DoesNotExist:
+        messages.add_message(request, messages.ERROR, 'Product didn\'t exist...')
+    partial_template_name = 'partials/products_table_body.html'
+    products = models.Product.objects.all()
+    total_products = products.count()
+    paginator = Paginator(products, 3)
+    page = request.GET.get('page', 1)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        paginator.page(paginator.num_pages)
+
+    context = {
+        'products': products,
+        'products_total': total_products
+    }
+    return render(request, partial_template_name, context)
